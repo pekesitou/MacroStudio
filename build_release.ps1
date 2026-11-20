@@ -62,7 +62,7 @@ if (-not $iscc) {
 }
 
 Write-Host "`n[5/5] Generando SHA256SUMS.txt..." -ForegroundColor Cyan
-$sums = Get-ChildItem 'dist' -File -Filter '*.exe' |
+$sums = @(Get-ChildItem 'dist' -File -Filter '*.exe') + @(Get-Item 'dist\MacroStudio_Portable.zip') |
     Sort-Object Name | ForEach-Object {
         $hash = (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
         "$hash  $($_.Name)"

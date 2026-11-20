@@ -1,2 +1,3 @@
+2b13ca3dfde9ccd9c6c84bb537f9793466e04cb1d4e1b9b68da1feb81a242263  MacroStudio_Portable.zip
 d73f4a0aebd9e3fc7ca85f8120363241ff6be65ce39203f2dfa995137424d86d  MacroStudio-NoInstall.exe
 4b36fde28cd803381d0ebf789262940865f67d5d10ca3975fda3b4548fd5f5cf  MacroStudio-Setup-1.0.0.exe
