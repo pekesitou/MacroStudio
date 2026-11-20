@@ -1,0 +1,5 @@
+__pycache__/
+*.py[cod]
+build/
+MacroStudio.spec
+dist/MacroStudio_Portable/
