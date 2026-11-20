@@ -8,8 +8,8 @@ rem If the compiled executable exists, launch it (built with --noconsole).
 rem `start` detaches the process and this batch exits immediately, so no
 rem console window stays open on screen.
 rem ---------------------------------------------------------------------------
-if exist "dist\MacroStudio.exe" (
-    start "" "dist\MacroStudio.exe"
+if exist "dist\MacroStudio-NoInstall.exe" (
+    start "" "dist\MacroStudio-NoInstall.exe"
     exit /b
 )
 

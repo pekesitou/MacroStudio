@@ -81,14 +81,15 @@ main.py             # Punto de entrada
 - **Marca:** Macro Studio está reescrito desde cero y no usa código ni iconos de otros grabadores. El formato `.rms` es un formato de datos compatible. Evita usar nombres o logos de terceros en tu distribución.
 ## 📦 Entregables
 
-Hay dos formas de instalar/ejecutar Macro Studio en Windows:
+Hay tres formas de ejecutar Macro Studio en Windows:
 
 | Opción | Archivo | Descripción |
 | --- | --- | --- |
 | **Instalador** | `dist\MacroStudio-Setup-1.0.0.exe` | Asistente clásico de Windows: licencia MIT, idioma español/inglés, carpeta de destino, acceso directo en menú Inicio y escritorio (opcional), y desinstalador. |
+| **NoInstall** | `dist\MacroStudio-NoInstall.exe` | Ejecutable suelto: doble clic y funciona sin instalar ni escribir en el registro. Guarda datos en `%APPDATA%\MacroStudio`. |
 | **Portable** | `dist\MacroStudio_Portable.zip` | Descomprime y ejecuta `MacroStudio.exe` sin instalar. Gracias al marcador `portable.txt`, ajustes y macros se guardan en `data\` junto al ejecutable, no en `%APPDATA%`. |
 
-`run.bat` abre la aplicación sin mostrar la terminal (usa directamente el `.exe` compilado; si no existe, cae a `pythonw.exe`).
+`dist\README.md` explica para qué sirve cada archivo de esa carpeta. `run.bat` abre la aplicación sin mostrar la terminal (usa el ejecutable NoInstall; si no existe, cae a `pythonw.exe`).
 
 ### Reconstruir los tres entregables
 
@@ -100,11 +101,11 @@ powershell -ExecutionPolicy Bypass -File .\build_release.ps1
 
 El script genera, en orden:
 
-1. `dist\MacroStudio.exe` — ejecutable de un solo archivo, sin consola y con el icono propio también en la barra de tareas.
+1. `dist\MacroStudio-NoInstall.exe` — ejecutable suelto de un solo archivo, sin consola y con el icono propio también en la barra de tareas.
 2. `dist\MacroStudio_Portable.zip` — carpeta portable + ZIP.
 3. `dist\MacroStudio-Setup-1.0.0.exe` — instalador (compilado desde `installer\MacroStudio.iss`).
 
-También copia `LICENSE`, `THIRD_PARTY_NOTICES.md` y `README.md` junto al ejecutable.
+También copia `LICENSE`, `THIRD_PARTY_NOTICES.md` y `DIST_README.md` (como `dist\README.md`) junto a los ejecutables.
 
 ## ⚠️ Nota
 
