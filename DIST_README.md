@@ -19,6 +19,7 @@ Los tres archivos principales contienen **la misma aplicación (v1.0.0)**. Solo 
 
 - `LICENSE` — licencia MIT del proyecto.
 - `THIRD_PARTY_NOTICES.md` — avisos de licencias de terceros (pynput, Pillow, CustomTkinter, etc.). **Inclúyelos si redistribuyes cualquiera de los ejecutables.**
+- `SHA256SUMS.txt` — huellas SHA256 de todos los archivos de esta carpeta. Sirven para comprobar que una descarga no está corrupta ni modificada. En PowerShell: `Get-FileHash .\MacroStudio-NoInstall.exe -Algorithm SHA256`; en Linux/macOS: `sha256sum -c SHA256SUMS.txt` (dentro de la carpeta).
 - `README.md` — esta guía. Para documentación completa, código fuente y compilación, consulta el README del repositorio.
 
 ## Instalación rápida

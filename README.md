@@ -105,7 +105,7 @@ El script genera, en orden:
 2. `dist\MacroStudio_Portable.zip` — carpeta portable + ZIP.
 3. `dist\MacroStudio-Setup-1.0.0.exe` — instalador (compilado desde `installer\MacroStudio.iss`).
 
-También copia `LICENSE`, `THIRD_PARTY_NOTICES.md` y `DIST_README.md` (como `dist\README.md`) junto a los ejecutables.
+También copia `LICENSE`, `THIRD_PARTY_NOTICES.md` y `DIST_README.md` (como `dist\README.md`) junto a los ejecutables, y genera `dist\SHA256SUMS.txt` con las huellas de todos los archivos.
 
 ## ⚠️ Nota
 

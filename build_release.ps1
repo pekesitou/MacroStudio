@@ -2,7 +2,7 @@
 $ErrorActionPreference = 'Stop'
 Set-Location $PSScriptRoot
 
-Write-Host "`n[1/4] Compilando ejecutable con PyInstaller..." -ForegroundColor Cyan
+Write-Host "`n[1/5] Compilando ejecutable con PyInstaller..." -ForegroundColor Cyan
 function Stop-RunningApp {
     Get-Process -Name MacroStudio,MacroStudio-NoInstall -ErrorAction SilentlyContinue | Stop-Process -Force
     Start-Sleep -Milliseconds 400
@@ -21,13 +21,13 @@ python -m PyInstaller --noconfirm --clean --onefile --noconsole `
     main.py
 if ($LASTEXITCODE -ne 0) { throw "PyInstaller fallo con codigo $LASTEXITCODE" }
 
-Write-Host "`n[2/4] Copiando licencias y guia de entregables..." -ForegroundColor Cyan
+Write-Host "`n[2/5] Copiando licencias y guia de entregables..." -ForegroundColor Cyan
 foreach ($doc in @('LICENSE', 'THIRD_PARTY_NOTICES.md')) {
     Copy-Item $doc -Destination "dist\$doc" -Force
 }
 Copy-Item 'DIST_README.md' -Destination 'dist\README.md' -Force
 
-Write-Host "`n[3/4] Creando version portable..." -ForegroundColor Cyan
+Write-Host "`n[3/5] Creando version portable..." -ForegroundColor Cyan
 $portable = 'dist\MacroStudio_Portable'
 if (Test-Path $portable) { Remove-Item $portable -Recurse -Force }
 New-Item -ItemType Directory -Path $portable -Force | Out-Null
@@ -41,7 +41,7 @@ Set-Content -Path "$portable\portable.txt" -Value "Macro Studio - portable mode"
 if (Test-Path 'dist\MacroStudio_Portable.zip') { Remove-Item 'dist\MacroStudio_Portable.zip' -Force }
 Compress-Archive -Path "$portable\*" -DestinationPath 'dist\MacroStudio_Portable.zip' -CompressionLevel Optimal
 
-Write-Host "`n[4/4] Compilando instalador con Inno Setup..." -ForegroundColor Cyan
+Write-Host "`n[4/5] Compilando instalador con Inno Setup..." -ForegroundColor Cyan
 $iscc = $null
 foreach ($candidate in @(
     "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe",
@@ -60,6 +60,14 @@ if (-not $iscc) {
     & $iscc "installer\MacroStudio.iss"
     if ($LASTEXITCODE -ne 0) { throw "ISCC fallo con codigo $LASTEXITCODE" }
 }
+
+Write-Host "`n[5/5] Generando SHA256SUMS.txt..." -ForegroundColor Cyan
+$sums = Get-ChildItem 'dist' -File | Where-Object { $_.Name -ne 'SHA256SUMS.txt' } |
+    Sort-Object Name | ForEach-Object {
+        $hash = (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+        "$hash  $($_.Name)"
+    }
+Set-Content -Path 'dist\SHA256SUMS.txt' -Value $sums -Encoding ASCII
 
 Write-Host "`nLISTO. Entregables en dist\:" -ForegroundColor Green
 Get-ChildItem 'dist' -File | Select-Object Name, @{n='MB';e={[math]::Round($_.Length/1MB, 2)}} |
